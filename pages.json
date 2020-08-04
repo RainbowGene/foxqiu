@@ -5,6 +5,7 @@
 			"style": {
 				"app-plus": {
 					"scrollIndicator": "none", // 隐藏滚动条,浏览器看得到
+					"bounce": "none", // 关闭反弹效果
 					"titleNView": {
 						// 配置搜索框
 						"searchInput": {
@@ -45,8 +46,44 @@
 		}, {
 			"path": "pages/home/home",
 			"style": {}
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"app-plus": {
+					"scrollIndicator": "none", // 隐藏滚动条,浏览器看得到
+					"bounce": "none", // 关闭反弹效果
+					"titleNView": {
+						"autoBackButton": true,
+						// 配置搜索框
+						"searchInput": {
+							"align": "left",
+							"backgroundColor": "#F7F7F7",
+							"borderRadius": "4px",
+							"placeholder": "搜索内容",
+							"placeholderColor": "#CCCCCC",
+							"disabled": false
+						},
+						// 配置按钮
+						"buttons": [{
+							"color": "#000000",
+							"colorPressed": "#BBBBBB",
+							"float": "right",
+							"fontSize": "28upx",
+							"text": "取消"
+						}]
+					}
+				}
+			}
 		}
-	],
+	    ,{
+            "path" : "pages/add-input/add-input",
+            "style" : {
+				"app-plus":{
+					"titleNView":false
+				}
+			}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "Fox-Baike",

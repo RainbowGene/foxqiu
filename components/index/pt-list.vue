@@ -1,15 +1,15 @@
 <template>
 	<!-- 图文组件 -->
-	<view class="pt-list">
+	<view class="pt-list animate__animated animate__backInUp">
 		<view class="item-avatar">
 			<view>
 				<image :src="item.avatar" mode="widthFix" lazy-load></image>
 				<text>{{item.username}}</text>
 			</view>
 			<view>
-				<button type="default">
-					<view v-if="!item.isgz" class="iconfont icon-add-sy"></view>
-					<text>{{item.isgz?'已关注':'关注'}}</text>
+				<button type="default" @click="attention(item)">
+					<view v-if="!isguanzhu" class="iconfont icon-add-sy"></view>
+					<text>{{isguanzhu?'已关注':'关注'}}</text>
 				</button>
 			</view>
 		</view>
@@ -23,10 +23,10 @@
 		</view>
 		<view class="list-caozuo">
 			<view class="left-icon">
-				<view class="iconfont icon-xiaolian" :class="{'active':item.infonnum.index==1}"></view>
-				<text>{{item.infonnum.dingnum}}</text>
-				<view class="iconfont icon-kulian" :class="{'active':item.infonnum.index==2}"></view>
-				<text>{{item.infonnum.cainum}}</text>
+				<view class="iconfont icon-xiaolian" @tap="taplike(1)" :class="{'active':infonnum.index==1}"></view>
+				<text>{{infonnum.dingnum}}</text>
+				<view class="iconfont icon-kulian" @tap="taplike(2)" :class="{'active':infonnum.index==2}"></view>
+				<text>{{infonnum.cainum}}</text>
 			</view>
 			<view class="right-icon">
 				<view class="iconfont icon-xiaoxi"></view>
@@ -42,6 +42,69 @@
 	export default {
 		props: {
 			item: Object
+		},
+		data(){
+			return {
+				isguanzhu : this.item.isgz,
+				infonnum : this.item.infonnum
+			}
+		},
+		methods: {
+			// 赞/踩
+			taplike(num) {
+				switch (this.infonnum.index) {
+					case 0:
+						if (num == 1) {
+							this.infonnum.dingnum++
+							this.infonnum.index = 1
+						} else {
+							this.infonnum.cainum++
+							this.infonnum.index = 2
+						}
+						break;
+					case 1:
+						if (num == 2) {
+							this.infonnum.dingnum--
+							this.infonnum.cainum++
+							this.infonnum.index = 2
+						} else {
+							this.infonnum.dingnum--
+							this.infonnum.index = 0
+						}
+						break;
+					case 2:
+						if (num == 1) {
+							this.infonnum.cainum--
+							this.infonnum.dingnum++
+							this.infonnum.index = 1
+						} else {
+							this.infonnum.cainum--
+							this.infonnum.index = 0
+						}
+						break;
+				}
+			},
+			// 关注
+			attention() {
+				if (!this.isguanzhu) {
+					uni.showToast({
+						title: '关注成功!'
+					})
+					this.isguanzhu = !this.isguanzhu
+				} else {
+					uni.showModal({
+						content: '确认取关?',
+						success: (res) => {
+							if (res.confirm) {
+								this.isguanzhu = !this.isguanzhu
+								uni.showToast({
+									title: '取关成功!'
+								})
+							}
+						}
+					})
+				}
+			}
 		}
 	}
 </script>

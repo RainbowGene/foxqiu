@@ -1,6 +1,6 @@
 <template>
 	<!-- tabbar:使用官方的 -->
-	<view class="uni-tab-bar">
+	<view v-if="tabBars" class="uni-tab-bar">
 		<scroll-view scroll-x class="uni-swiper-tab">
 			<block v-for="(item,index) in tabBars" :key="item.id">
 				<view class="swiper-tab-list" @click="tabtap(index)" :class="{'active':tabIndex==index}">{{item.name}}
@@ -12,26 +12,21 @@
 </template>
 
 <script>
+	import ptList from './pt-list.vue';
 	export default {
 		props: {
-			tabBars: Array
-		},
-		data() {
-			return {
-				tabIndex: 0
-			}
+			tabBars: Array,
+			tabIndex: Number
 		},
 		methods: {
-			// 点击发送事件
 			tabtap(index) {
-				this.tabIndex = index;
-				this.$emit("tabSel",index)
+				this.$emit('selIndex', index)
 			}
 		}
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.uni-tab-bar {
 		margin-top: 10upx;
 
@@ -54,4 +49,6 @@
 			}
 		}
 	}
+
+	// 这个高度等于视口高度 - tabbar 高度
 </style>
