@@ -1,9 +1,9 @@
 <template>
 	<!-- tabbar:使用官方的 -->
-	<view v-if="tabBars" class="uni-tab-bar">
+	<view v-if="tabBars" class="uni-tab-bar" style="bor" :style="scrollStyle">
 		<scroll-view scroll-x class="uni-swiper-tab">
 			<block v-for="(item,index) in tabBars" :key="item.id">
-				<view class="swiper-tab-list" @click="tabtap(index)" :class="{'active':tabIndex==index}">{{item.name}}
+				<view class="swiper-tab-list" @click="tabtap(index)" :style="scrollItemStyle" :class="{'active':tabIndex==index}">{{item.name}}
 					<view class="swiper-tab-line"></view>
 				</view>
 			</block>
@@ -16,7 +16,15 @@
 	export default {
 		props: {
 			tabBars: Array,
-			tabIndex: Number
+			tabIndex: Number,
+			scrollStyle: {
+				type: String,
+				default: ""
+			},
+			scrollItemStyle: {
+				type: String,
+				default: ""
+			}
 		},
 		methods: {
 			tabtap(index) {

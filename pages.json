@@ -40,13 +40,36 @@
 		}, {
 			"path": "pages/news/news",
 			"style": {
-				"app-plus":{
-					"titleNView":false
+				"app-plus": {
+					"titleNView": false
 				}
 			}
 		}, {
 			"path": "pages/paper/paper",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "小纸条",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"color": "#000000",
+								"colorPressed": "#BBBBBB",
+								"float": "left",
+								"fontSize": "22px",
+								"fontSrc": "/static/font/icon.ttf",
+								"text": "\ue64f"
+							},
+							{
+								"color": "#000000",
+								"colorPressed": "#BBBBBB",
+								"float": "right",
+								"fontSize": "22px",
+								"fontSrc": "/static/font/icon.ttf",
+								"text": "\ue610"
+							}
+						]
+					}
+				}
+			}
 		}, {
 			"path": "pages/home/home",
 			"style": {}
@@ -78,16 +101,40 @@
 					}
 				}
 			}
-		}
-	    ,{
-            "path" : "pages/add-input/add-input",
-            "style" : {
-				"app-plus":{
-					"titleNView":false
+		}, {
+			"path": "pages/add-input/add-input",
+			"style": {
+				"app-plus": {
+					"titleNView": false
 				}
 			}
-        }
-    ],
+		},
+		{
+			"path": "pages/topic-nav/topic-nav",
+			"style": {
+				"navigationBarTitleText": "话题分类",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		}, {
+			"path": "pages/topic-detail/topic-detail",
+			"style": {
+				"enablePullDownRefresh": true, // 下拉刷新开启
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent", //渐变
+						"buttons": [{
+							"type": "menu"
+						}],
+						"titleText": ""
+					},
+					// "titleNView":false,
+					"scrollIndicator": "none" // 隐藏滚动条
+				}
+			}
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "Fox-Baike",

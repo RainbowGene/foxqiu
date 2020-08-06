@@ -1,100 +1,67 @@
 <template>
 	<view>
-		<!-- 自定义导航栏 -->
-		<uni-nav-bar class="navbar" :statusBar="true" @clickRight="openAdd">
-			<!-- 左边 -->
-			<block slot="left">
-				<view class="nav-left">
-					<view class="icon iconfont icon-qiandao"></view>
-				</view>
-			</block>
-			<!-- 中间 -->
-			<view class="center">
-				<block v-for="(item,index) in tabBars" :key="item.id">
-					<view :class="{'active':tabindex==index}" @tap="selTab(index)">
-						{{item.name}}
-						<view v-if="tabindex==index" class="tab_line"></view>
-					</view>
-				</block>
-			</view>
-			<!-- 右边 -->
-			<block slot="right">
-				<view class="nav-right">
-					<view class="icon iconfont icon-bi"></view>
-				</view>
-			</block>
-		</uni-nav-bar>
-		<!-- 列表 -->
-		<block v-for="(item,index) in list" :key="index">
-			<view class="common-list">
-				<!-- 左侧头像 -->
-				<view class="list-avatar">
-					<image :src="item.userpic" mode="widthFix" lazy-load></image>
-				</view>
-				<!-- 右侧内容 -->
-				<view class="list-content">
-					<view class="con-head">
-						<view class="head-left">
-							<view class="username">{{item.username}}</view>
-							<view class="age" :class="item.sex==0?'red':'lan'">
-								<view :class="item.sex==0?'icon-nv red':'icon-nan lan'" class="icon iconfont"></view>
-								<view>{{item.age}}</view>
-							</view>
+		<!-- 自定义导航条 -->
+		<news-nav-bar :tabBars="tabBars" :tabindex="tabindex" @selTab="selTab"></news-nav-bar>
+		<view class="uni-tab-bar">
+			<swiper class="swiper-box" :style="{height:swiperHeight+'px'}" :current="tabindex" @change="tabChange">
+				<!-- 关注 -->
+				<swiper-item>
+					<scroll-view scroll-y="true" class="list" @scrolltolower="loadMore">
+						<!-- 列表 -->
+						<block v-for="(item,index) in mockdata.list" :key="index">
+							<common-list :item="item" :index="tabindex"></common-list>
+						</block>
+						<load-more :loadtext="mockdata.loadtext"></load-more>
+					</scroll-view>
+				</swiper-item>
+				<!-- 话题 -->
+				<swiper-item>
+					<scroll-view scroll-y="true" class="list htlist">
+						<!-- 搜索框 -->
+						<view class="search">
+							<input class="uni-input" placeholder-class="topic-search iconfont icon-soushuo" placeholder="搜索内容" />
 						</view>
-						<view class="head-right">
-							<button type="default">
-								<view :class="item.isgz?'':'icon-add-sy'" class="icon iconfont"></view>
-								<view>{{item.isgz?'已关注':'关注'}}</view>
-							</button>
-							<view class="icon iconfont icon-guanbi1"></view>
+						<!-- 轮播图 -->
+						<swiper class="topic-swiper" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+							<block v-for="item in topic.swiper" :key="item.id">
+								<swiper-item>
+									<image :src="item.imgurl" mode="widthFix"></image>
+								</swiper-item>
+							</block>
+						</swiper>
+						<!-- 热门分类 -->
+						<topic-cate :category="topic.category"></topic-cate>
+						<!-- 最近更新 -->
+						<view class="recent">
+							<view class="r-title">最近更新</view>
+							<block v-for="(item,index) in topic.recentlist" :key="index">
+								<topic-list :item="item"></topic-list>
+							</block>
 						</view>
-					</view>
-					<view class="con-text">
-						<view class="txt">
-							{{item.comment}}
-						</view>
-					</view>
-					<!-- 一般图片 -->
-					<view v-if="!item.share&&!item.video" class="con-video">
-						<image :src="item.cover" mode="widthFix" lazy-load></image>
-					</view>
-					<!-- 一般视频 -->
-					<view v-if="item.video" class="con-video">
-						<image :src="item.cover" mode="widthFix" lazy-load></image>
-						<view class="add icon icon-add-sy"></view>
-						<view class="desc">Design</view>
-						<view class="btn icon iconfont icon-liulan"></view>
-						<view class="player">20w 次播放 2:47</view>
-						<view class="year">2019</view>
-					</view>
-					<!-- 转发动态样式 -->
-					<view v-if="item.share" class="con-zf">
-						<image :src="item.share.sharepic" mode="widthFix"></image>
-						<view class="text">{{item.share.title}}
-						</view>
-					</view>
-					<!-- 底栏 -->
-					<view class="con-footer">
-						<view class="foot-l">
-							<view>{{item.address}}</view>
-						</view>
-						<view class="foot-r">
-							<view class="icon iconfont icon-forward">{{item.sharenum}}</view>
-							<view class="icon iconfont icon-xiaoxi">{{item.commentnum}}</view>
-							<view class="icon iconfont icon-zan1">{{item.zannum}}</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</block>
+					</scroll-view>
+				</swiper-item>
+			</swiper>
+		</view>
 	</view>
 </template>
 
 <script>
-	import uniNavBar from '../../components/navbar/uni-nav-bar/uni-nav-bar.vue'
+	import commonList from '../../components/common/common-list.vue'
+	import newsNavBar from '../../components/news/news-nav-bar.vue'
+	import loadMore from '../../components/common/load-more.vue'
+	import topicCate from '../../components/news/topic-cate.vue'
+	import topicList from '../../components/news/topic-list.vue'
 	export default {
+		components: {
+			commonList,
+			newsNavBar,
+			loadMore,
+			topicCate,
+			topicList
+		},
 		data() {
 			return {
+				swiperHeight: 500,
 				tabindex: 0,
 				tabBars: [{
 						name: "关注",
@@ -105,42 +72,146 @@
 						id: 'ht'
 					}
 				],
-				list: [{ // 图片
-						userpic: '../../static/img/mock/13.jpg',
-						username: '三余先生',
-						sex: 0, // 0 女 1 男
-						age: 18,
-						isgz: false,
-						title: '我是标题',
-						comment: '六道快手家常菜，好吃又下饭，家人都说好',
-						cover: '../../static/img/mock/1.jpg',
-						video: false,
-						share: false,
-						address: '深圳 龙华',
-						sharenum: 20,
-						commentnum: 789,
-						zannum: 1200
-					},
-					{ // 视频
-						userpic: '../../static/img/mock/13.jpg',
-						username: '三余先生',
-						sex: 0, // 0 女 1 男
-						age: 18,
-						isgz: true,
-						title: '我是标题',
-						comment: '六道快手家常菜，好吃又下饭，家人都说好',
-						cover: '../../static/img/mock/1.jpg',
-						video: {
-							looknum: '23w',
-							long: '2:47'
+				topic: {
+					swiper: [{
+							imgurl: '../../static/img/mock/1.jpg',
+							id: 1
 						},
-						share: false,
-						address: '深圳 龙华',
-						sharenum: 20,
-						commentnum: 789,
-						zannum: 1200
-					},
-					{ // 分享
+						{
+							imgurl: '../../static/img/mock/2.jpg',
+							id: 2
+						},
+						{
+							imgurl: '../../static/img/mock/3.jpg',
+							id: 3
+						}
+					],
+					category: [{
+							catename: '最新'
+						},
+						{
+							catename: '游戏'
+						},
+						{
+							catename: '情感'
+						},
+						{
+							catename: '打卡'
+						},
+						{
+							catename: '故事'
+						},
+						{
+							catename: '喜爱'
+						}
+					],
+					recentlist: [{
+							imgurl: '../../static/img/mock/15.jpg',
+							title: '#淘宝记录铺#',
+							desc: '120斤到150斤，我的反转人生',
+							dynamic: 23,
+							browse: 750
+						},
+						{
+							imgurl: '../../static/img/mock/15.jpg',
+							title: '#淘宝记录铺#',
+							desc: '120斤到150斤，我的反转人生',
+							dynamic: 23,
+							browse: 750
+						},
+						{
+							imgurl: '../../static/img/mock/15.jpg',
+							title: '#淘宝记录铺#',
+							desc: '120斤到150斤，我的反转人生',
+							dynamic: 23,
+							browse: 750
+						}
+					]
+				},
+				mockdata: {
+					loadtext: '上拉加载更多',
+					list: [{ // 图片
+							userpic: '../../static/img/mock/13.jpg',
+							username: '三余先生',
+							sex: 0, // 0 女 1 男
+							age: 18,
+							isgz: false,
+							title: '我是标题',
+							comment: '六道快手家常菜，好吃又下饭，家人都说好',
+							cover: '../../static/img/mock/1.jpg',
+							video: false,
+							share: false,
+							address: '深圳 龙华',
+							sharenum: 20,
+							commentnum: 789,
+							zannum: 1200
+						},
+						{ // 视频
+							userpic: '../../static/img/mock/13.jpg',
+							username: '三余先生',
+							sex: 0, // 0 女 1 男
+							age: 18,
+							isgz: true,
+							title: '我是标题',
+							comment: '六道快手家常菜，好吃又下饭，家人都说好',
+							cover: '../../static/img/mock/1.jpg',
+							video: {
+								looknum: '23w',
+								long: '2:47'
+							},
+							share: false,
+							address: '深圳 龙华',
+							sharenum: 20,
+							commentnum: 789,
+							zannum: 1200
+						},
+						{ // 分享
+							userpic: '../../static/img/mock/13.jpg',
+							username: '三余先生',
+							sex: 0, // 0 女 1 男
+							age: 18,
+							isgz: false,
+							title: '我的转发信息',
+							comment: '六道快手家常菜，好吃又下饭，家人都说好',
+							cover: '../../static/img/mock/1.jpg',
+							video: false,
+							share: {
+								title: '文章标题',
+								sharepic: '../../static/img/mock/1.jpg'
+							},
+							address: '深圳 龙华',
+							sharenum: 20,
+							commentnum: 789,
+							zannum: 1200
+						}
+					]
+				}
+			}
+		},
+		onLoad() {
+			// 根据视口大小设置滑动组件高度
+			uni.getSystemInfo({
+				success: (res) => {
+					this.swiperHeight = res.windowHeight - uni.upx2px(100)
+				}
+			})
+		},
+		methods: {
+			// 点击切换
+			selTab(num) {
+				this.tabindex = num
+			},
+			// 滑动切换
+			tabChange(e) {
+				this.tabindex = e.detail.current
+			},
+			// 触底事件
+			loadMore() {
+				// this.mockdata.loadtext = "上拉加载更多..."
+				this.mockdata.loadtext = "加载中..."
+				// this.mockdata.loadtext = "到底啦!"
+				setTimeout(() => {
+					let obj = { // 分享
 						userpic: '../../static/img/mock/13.jpg',
 						username: '三余先生',
 						sex: 0, // 0 女 1 男
@@ -159,239 +230,48 @@
 						commentnum: 789,
 						zannum: 1200
 					}
-				]
+					//this.mockdata.loadtext = "到底啦!"
+					this.mockdata.list.push(obj)
+					this.mockdata.loadtext = "上拉加载更多!"
+				}, 1000)
 			}
-		},
-		methods: {
-			// 切换tab栏
-			selTab(num) {
-				this.tabindex = num
-			}
-		},
-		components: {
-			uniNavBar
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	// 列表样式
-	.common-list {
-		display: flex;
-		// margin: 30upx;
-		padding: 30upx;
-		border-bottom: 16upx solid #EEEEEE;
+	.htlist {
+		.search {
+			padding: 20upx;
 
-		.list-avatar {
-			width: 20%;
+			&>input {
+				background: #F4F4F4;
+				border-radius: 10upx;
+			}
+
+			.topic-search {
+				font-size: 30upx;
+				display: flex;
+				justify-content: center;
+			}
+		}
+
+		.topic-swiper {
+			padding: 0 20upx 20upx 20upx;
+			border-radius: 10upx;
 
 			image {
 				width: 100%;
-				border-radius: 50%;
 			}
 		}
 
-		.list-content {
-			width: 80%;
-			padding-left: 20upx;
-
-			.con-head {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-
-				.head-left {
-					display: flex;
-					align-items: center;
-
-					.username {
-						color: grey;
-						font-size: 35upx;
-					}
-
-					.age {
-						display: flex;
-						border-radius: 50%;
-						padding: 0 5upx;
-						margin-left: 10upx;
-
-						view {
-							font-size: 4upx;
-						}
-
-						&.lan {
-							background: yellow;
-						}
-
-						&.red {
-							background: pink;
-						}
-					}
-				}
-
-				.head-right {
-					display: flex;
-
-					button {
-						display: flex;
-						align-items: center;
-						margin-right: 10upx;
-
-						.icon {
-							display: flex;
-							justify-content: center;
-							margin-right: 10upx;
-						}
-					}
-				}
-			}
-
-			.con-text {
-				margin-top: 10upx;
-
-				view {
-					font-size: 35upx;
-				}
-			}
-
-			.con-video {
-				margin-top: 10upx;
-				position: relative;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-
-				image {
-					width: 100%;
-					min-height: 400upx;
-					border-radius: 20upx;
-				}
-
-				view {
-					position: absolute;
-					color: white;
-
-					&.add {
-						left: 20upx;
-						top: 20upx;
-					}
-
-					&.year {
-						bottom: 20upx;
-						left: 20upx;
-					}
-
-					&.desc {
-						right: 20upx;
-						top: 20upx;
-					}
-
-					&.btn {
-						font-size: 120upx;
-						// opacity: 0.5;
-					}
-
-					&.player {
-						right: 20upx;
-						bottom: 20upx;
-					}
-				}
-			}
-
-			.con-zf {
-				width: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background: #EEEEEE;
-				border-radius: 20upx;
-				margin: 10upx 0;
-
-				// padding: 10upx;
-				image {
-					width: 200upx;
-					height: 150upx;
-					margin: 10upx;
-					border-radius: 10upx;
-				}
-
-				view {
-					flex: 1;
-					font-size: 15upx;
-				}
-			}
-
-			.con-footer {
-				margin-top: 10upx;
-				display: flex;
-				justify-content: space-between;
-				color: grey;
-
-				.foot-l {}
-
-				.foot-r {
-					display: flex;
-					align-items: center;
-
-					view {
-						font-size: 30upx;
-						margin-right: 10upx;
-					}
-				}
-			}
-		}
-	}
-
-	// 导航条样式
-	.navbar {
-		.nav-left {
-			margin-left: 32upx;
-
-			view {
-				color: #FF9619;
-				font-size: 40upx;
-			}
-		}
-
-		.nav-right {
+		.recent {
 			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 100%;
+			flex-direction: column;
+			padding: 20upx;
 
-			view {
+			.r-title {
 				font-size: 40upx;
-			}
-		}
-
-		.center {
-			width: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-left: -20upx;
-
-			view {
-				font-size: 35upx;
-				padding: 0 15upx;
-				font-weight: bold;
-				color: #969696;
-				display: flex;
-				flex-direction: column;
-				position: relative;
-			}
-
-			.active {
-				color: black !important;
-
-				.tab_line {
-					position: absolute;
-					bottom: 0;
-					right: 0;
-					left: 0;
-					margin: 0 15upx;
-					border-bottom: 4upx solid #FF9619;
-				}
 			}
 		}
 	}
