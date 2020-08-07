@@ -143,7 +143,7 @@
 						}
 
 						&.lan {
-							background: yellow;
+							background: #7aa6e9;
 						}
 
 						&.red {

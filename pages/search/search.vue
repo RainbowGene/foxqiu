@@ -11,6 +11,9 @@
 
 			}
 		},
+		mounted() {
+			this.clearBack()
+		},
 		// 监听原生标题栏按钮点击事件，参数为Object
 		onNavigationBarButtonTap(e) {
 			if (e.index == 0) { // 第一个按钮,取消按钮
@@ -28,7 +31,10 @@
 			console.log(e.text)
 		},
 		methods: {
-
+			clearBack() {
+				var a = document.getElementsByClassName('uni-page-head-hd')[0]
+				a.style.display = 'none';
+			}
 		}
 	}
 </script>
