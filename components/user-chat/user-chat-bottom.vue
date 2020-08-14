@@ -15,6 +15,7 @@
 		methods: {
 			sendMsg() {
 				this.$emit('sendMsg', this.text)
+				this.text = ''
 			}
 		}
 	}
