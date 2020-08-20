@@ -73,7 +73,18 @@
 			}
 		}, {
 			"path": "pages/home/home",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "我的",
+				"app-plus": {
+					"scrollIndicator": "none",
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							"type": "menu"
+						}]
+					}
+				}
+			}
 		}, {
 			"path": "pages/search/search",
 			"style": {
@@ -178,6 +189,49 @@
 							"text": "\ue711"
 						}]
 					}
+				}
+			}
+		}, {
+			"path": "pages/detail/detail",
+			"style": {
+				"navigationBarTitleText": "内容页",
+				"app-plus": {
+					"scrollIndicator": "none",
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							"type": "menu"
+						}]
+					}
+				}
+			}
+		}, {
+			"path": "pages/user-set/user-set",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+		}, {
+			"path": "pages/user-set-psd/user-set-psd",
+			"style": {
+				"navigationBarTitleText": "修改密码",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
+			}
+		}, {
+			"path": "pages/user-set-email/user-set-email",
+			"style": {
+				"navigationBarTitleText": "绑定邮箱",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
+			}
+		}, {
+			"path": "pages/user-set-info/user-set-info",
+			"style": {
+				"navigationBarTitleText": "修改资料",
+				"app-plus": {
+					"scrollIndicator": "none"
 				}
 			}
 		}

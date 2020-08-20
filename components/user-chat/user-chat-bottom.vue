@@ -35,7 +35,7 @@
 		input {
 			flex: 1;
 			margin-right: 10upx;
-			font-size: 40upx;
+			font-size: 35upx;
 			padding: 8upx 15upx;
 			border-radius: 20upx;
 			background: #f7f7f7;

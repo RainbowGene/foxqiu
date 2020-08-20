@@ -19,7 +19,7 @@
 						<view :class="isgz?'':'icon-add-sy'" class="icon iconfont"></view>
 						<view>{{isgz?'已关注':'关注'}}</view>
 					</button>
-					<view class="icon iconfont icon-guanbi1"></view>
+					<!-- <view class="icon iconfont icon-guanbi1"></view> -->
 				</view>
 			</view>
 			<view class="con-text">
@@ -67,12 +67,12 @@
 			item: Object,
 			index: Number
 		},
-		data(){
+		data() {
 			return {
-				isgz:this.item.isgz
+				isgz: this.item.isgz
 			}
 		},
-		methods:{
+		methods: {
 			attention() {
 				if (!this.isgz) {
 					uni.showToast({
@@ -98,170 +98,171 @@
 </script>
 
 <style lang="scss" scoped>
+	@import "../../common/css/common-list.scss";
 	// 列表样式
-	.common-list {
-		display: flex;
-		// margin: 30upx;
-		padding: 30upx;
-		border-bottom: 16upx solid #EEEEEE;
+	// .common-list {
+	// 	display: flex;
+	// 	// margin: 30upx;
+	// 	padding: 30upx;
+	// 	border-bottom: 16upx solid #EEEEEE;
 
-		.list-avatar {
-			width: 20%;
+	// 	.list-avatar {
+	// 		width: 20%;
 
-			image {
-				width: 100%;
-				border-radius: 50%;
-			}
-		}
+	// 		image {
+	// 			width: 100%;
+	// 			border-radius: 50%;
+	// 		}
+	// 	}
 
-		.list-content {
-			width: 80%;
-			padding-left: 20upx;
+	// 	.list-content {
+	// 		width: 80%;
+	// 		padding-left: 20upx;
 
-			.con-head {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
+	// 		.con-head {
+	// 			display: flex;
+	// 			align-items: center;
+	// 			justify-content: space-between;
 
-				.head-left {
-					display: flex;
-					align-items: center;
+	// 			.head-left {
+	// 				display: flex;
+	// 				align-items: center;
 
-					.username {
-						color: grey;
-						font-size: 35upx;
-					}
+	// 				.username {
+	// 					color: grey;
+	// 					font-size: 35upx;
+	// 				}
 
-					.age {
-						display: flex;
-						border-radius: 50%;
-						padding: 0 5upx;
-						margin-left: 10upx;
+	// 				.age {
+	// 					display: flex;
+	// 					border-radius: 50%;
+	// 					padding: 0 5upx;
+	// 					margin-left: 10upx;
 
-						view {
-							font-size: 4upx;
-						}
+	// 					view {
+	// 						font-size: 4upx;
+	// 					}
 
-						&.lan {
-							background: #7aa6e9;
-						}
+	// 					&.lan {
+	// 						background: #7aa6e9;
+	// 					}
 
-						&.red {
-							background: pink;
-						}
-					}
-				}
+	// 					&.red {
+	// 						background: pink;
+	// 					}
+	// 				}
+	// 			}
 
-				.head-right {
-					display: flex;
+	// 			.head-right {
+	// 				display: flex;
 
-					button {
-						display: flex;
-						align-items: center;
-						margin-right: 10upx;
+	// 				button {
+	// 					display: flex;
+	// 					align-items: center;
+	// 					margin-right: 10upx;
 
-						.icon {
-							display: flex;
-							justify-content: center;
-							margin-right: 10upx;
-						}
-					}
-				}
-			}
+	// 					.icon {
+	// 						display: flex;
+	// 						justify-content: center;
+	// 						margin-right: 10upx;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
 
-			.con-text {
-				margin-top: 10upx;
+	// 		.con-text {
+	// 			margin-top: 10upx;
 
-				view {
-					font-size: 35upx;
-				}
-			}
+	// 			view {
+	// 				font-size: 35upx;
+	// 			}
+	// 		}
 
-			.con-video {
-				margin-top: 10upx;
-				position: relative;
-				display: flex;
-				align-items: center;
-				justify-content: center;
+	// 		.con-video {
+	// 			margin-top: 10upx;
+	// 			position: relative;
+	// 			display: flex;
+	// 			align-items: center;
+	// 			justify-content: center;
 
-				image {
-					width: 100%;
-					min-height: 400upx;
-					border-radius: 20upx;
-				}
+	// 			image {
+	// 				width: 100%;
+	// 				min-height: 400upx;
+	// 				border-radius: 20upx;
+	// 			}
 
-				view {
-					position: absolute;
-					color: white;
+	// 			view {
+	// 				position: absolute;
+	// 				color: white;
 
-					&.add {
-						left: 20upx;
-						top: 20upx;
-					}
+	// 				&.add {
+	// 					left: 20upx;
+	// 					top: 20upx;
+	// 				}
 
-					&.year {
-						bottom: 20upx;
-						left: 20upx;
-					}
+	// 				&.year {
+	// 					bottom: 20upx;
+	// 					left: 20upx;
+	// 				}
 
-					&.desc {
-						right: 20upx;
-						top: 20upx;
-					}
+	// 				&.desc {
+	// 					right: 20upx;
+	// 					top: 20upx;
+	// 				}
 
-					&.btn {
-						font-size: 120upx;
-						// opacity: 0.5;
-					}
+	// 				&.btn {
+	// 					font-size: 120upx;
+	// 					// opacity: 0.5;
+	// 				}
 
-					&.player {
-						right: 20upx;
-						bottom: 20upx;
-					}
-				}
-			}
+	// 				&.player {
+	// 					right: 20upx;
+	// 					bottom: 20upx;
+	// 				}
+	// 			}
+	// 		}
 
-			.con-zf {
-				width: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				background: #EEEEEE;
-				border-radius: 20upx;
-				margin: 10upx 0;
+	// 		.con-zf {
+	// 			width: 100%;
+	// 			display: flex;
+	// 			align-items: center;
+	// 			justify-content: center;
+	// 			background: #EEEEEE;
+	// 			border-radius: 20upx;
+	// 			margin: 10upx 0;
 
-				// padding: 10upx;
-				image {
-					width: 200upx;
-					height: 150upx;
-					margin: 10upx;
-					border-radius: 10upx;
-				}
+	// 			// padding: 10upx;
+	// 			image {
+	// 				width: 200upx;
+	// 				height: 150upx;
+	// 				margin: 10upx;
+	// 				border-radius: 10upx;
+	// 			}
 
-				view {
-					flex: 1;
-					font-size: 15upx;
-				}
-			}
+	// 			view {
+	// 				flex: 1;
+	// 				font-size: 15upx;
+	// 			}
+	// 		}
 
-			.con-footer {
-				margin-top: 10upx;
-				display: flex;
-				justify-content: space-between;
-				color: grey;
+	// 		.con-footer {
+	// 			margin-top: 10upx;
+	// 			display: flex;
+	// 			justify-content: space-between;
+	// 			color: grey;
 
-				.foot-l {}
+	// 			.foot-l {}
 
-				.foot-r {
-					display: flex;
-					align-items: center;
+	// 			.foot-r {
+	// 				display: flex;
+	// 				align-items: center;
 
-					view {
-						font-size: 30upx;
-						margin-right: 10upx;
-					}
-				}
-			}
-		}
-	}
+	// 				view {
+	// 					font-size: 30upx;
+	// 					margin-right: 10upx;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 </style>

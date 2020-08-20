@@ -1,0 +1,166 @@
+/* 公共列表样式 */
+.common-list {
+	display: flex;
+	// margin: 30upx;
+	padding: 30upx;
+	border-bottom: 16upx solid #EEEEEE;
+
+	.list-avatar {
+		width: 20%;
+
+		image {
+			width: 100%;
+			border-radius: 50%;
+		}
+	}
+
+	.list-content {
+		width: 80%;
+		padding-left: 20upx;
+
+		.con-head {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.head-left {
+				display: flex;
+				align-items: center;
+
+				.username {
+					color: grey;
+					font-size: 35upx;
+				}
+
+				.age {
+					display: flex;
+					border-radius: 50%;
+					padding: 0 5upx;
+					margin-left: 10upx;
+
+					view {
+						font-size: 4upx;
+					}
+
+					&.lan {
+						background: #7aa6e9;
+					}
+
+					&.red {
+						background: pink;
+					}
+				}
+			}
+
+			.head-right {
+				display: flex;
+
+				button {
+					display: flex;
+					align-items: center;
+					margin-right: 10upx;
+
+					.icon {
+						display: flex;
+						justify-content: center;
+						margin-right: 10upx;
+					}
+				}
+			}
+		}
+
+		.con-text {
+			margin-top: 10upx;
+
+			view {
+				font-size: 35upx;
+			}
+		}
+
+		.con-video {
+			margin-top: 10upx;
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			image {
+				width: 100%;
+				min-height: 400upx;
+				border-radius: 20upx;
+			}
+
+			view {
+				position: absolute;
+				color: white;
+
+				&.add {
+					left: 20upx;
+					top: 20upx;
+				}
+
+				&.year {
+					bottom: 20upx;
+					left: 20upx;
+				}
+
+				&.desc {
+					right: 20upx;
+					top: 20upx;
+				}
+
+				&.btn {
+					font-size: 120upx;
+					// opacity: 0.5;
+				}
+
+				&.player {
+					right: 20upx;
+					bottom: 20upx;
+				}
+			}
+		}
+
+		.con-zf {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #EEEEEE;
+			border-radius: 20upx;
+			margin: 10upx 0;
+
+			// padding: 10upx;
+			image {
+				width: 200upx;
+				height: 150upx;
+				margin: 10upx;
+				border-radius: 10upx;
+			}
+
+			view {
+				flex: 1;
+				font-size: 15upx;
+			}
+		}
+
+		.con-footer {
+			margin-top: 10upx;
+			display: flex;
+			justify-content: space-between;
+			color: grey;
+
+			.foot-l {}
+
+			.foot-r {
+				display: flex;
+				align-items: center;
+
+				view {
+					font-size: 30upx;
+					margin-right: 10upx;
+				}
+			}
+		}
+	}
+}

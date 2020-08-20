@@ -1,6 +1,6 @@
 <template>
 	<!-- 图文组件 -->
-	<view class="pt-list animate__animated animate__backInUp">
+	<view class="pt-list animate__animated animate__backInUp" @tap="openDetail">
 		<view class="item-avatar">
 			<view>
 				<image :src="item.avatar" mode="widthFix" lazy-load></image>
@@ -43,10 +43,10 @@
 		props: {
 			item: Object
 		},
-		data(){
+		data() {
 			return {
-				isguanzhu : this.item.isgz,
-				infonnum : this.item.infonnum
+				isguanzhu: this.item.isgz,
+				infonnum: this.item.infonnum
 			}
 		},
 		methods: {
@@ -104,6 +104,13 @@
 						}
 					})
 				}
+			},
+			// 进入详情页
+			openDetail() {
+				uni.navigateTo({
+					// 将对象转为字符串
+					url: "../../pages/detail/detail?detailData=" + JSON.stringify(this.item)
+				})
 			}
 		}
 	}
