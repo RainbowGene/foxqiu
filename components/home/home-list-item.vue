@@ -40,7 +40,7 @@
 
 <style lang="scss" scoped>
 	.list-item {
-		margin: 20upx;
+		margin: 40upx 20upx;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

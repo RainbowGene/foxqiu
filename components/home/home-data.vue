@@ -1,5 +1,4 @@
 <template>
-	
 	<view class="home-data">
 		<block v-for="(item,index) in datalist" :key="index">
 			<view>

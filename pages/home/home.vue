@@ -6,7 +6,7 @@
 			<!-- 第三方登录组件 -->
 			<home-other-login></home-other-login>
 			<!-- 账号密码登陆 -->
-			<view class="u-ajc">
+			<view class="u-ajc" @tap="navToLogin">
 				账号密码登陆<view class="icon iconfont icon-fanhui2"></view>
 			</view>
 		</template>
@@ -74,33 +74,37 @@
 						name: '浏览历史',
 						icon: "icon-liulan",
 						color: 'orange',
-						type:'',
-						link:''
+						type: '',
+						link: ''
 					},
 					{
 						name: '糗百认证',
 						icon: "icon-VIP1",
 						color: "green",
-						type:'',
-						link:''
+						type: '',
+						link: ''
 					},
 					{
 						name: '审核糗事',
 						icon: "icon-biji1",
 						color: 'orange',
-						type:'',
-						link:''
+						type: '',
+						link: ''
 					}
 				]
 			}
 		},
 		methods: {
-
+			navToLogin() {
+				uni.navigateTo({
+					url: '../login/login'
+				})
+			}
 		},
 		onNavigationBarButtonTap(e) {
 			if (e.index === 0) {
 				uni.navigateTo({
-					url:"../user-set/user-set"
+					url: "../user-set/user-set"
 				})
 			}
 		}

@@ -1,6 +1,6 @@
 <template>
 	<!-- 图文组件 -->
-	<view class="pt-list animate__animated animate__backInUp" @tap="openDetail">
+	<view class="pt-list animate__animated animate__backInUp">
 		<view class="item-avatar">
 			<view>
 				<image :src="item.avatar" mode="widthFix" lazy-load></image>
@@ -13,8 +13,8 @@
 				</button>
 			</view>
 		</view>
-		<view class="list-title">{{item.title}}</view>
-		<view class="list-cover">
+		<view class="list-title" @tap="openDetail">{{item.title}}</view>
+		<view class="list-cover" @tap="openDetail">
 			<image :src="item.cover" mode="widthFix" lazy-load></image>
 			<template v-if="item.type=='video'">
 				<view class="video-player iconfont icon-liulan"></view>

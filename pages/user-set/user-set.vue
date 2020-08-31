@@ -47,13 +47,13 @@
 					},
 					{
 						name: '意见反馈',
-						type: '',
-						link: ''
+						type: 'navigateTo',
+						link: '../user-set-help/user-set-help'
 					},
 					{
 						name: '关于',
-						type: '',
-						link: ''
+						type: 'navigateTo',
+						link: '../user-set-about/user-set-about'
 					}
 				]
 			}

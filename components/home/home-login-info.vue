@@ -1,6 +1,6 @@
 <template>
 
-	<view class="my-login-body">
+	<view class="my-login-body" @tap="toUser">
 		<view class="left">
 			<image :src="userObj.userpic" mode="widthFix"></image>
 		</view>
@@ -20,8 +20,15 @@
 
 <script>
 	export default {
-		props:{
-			userObj:Object
+		props: {
+			userObj: Object
+		},
+		methods: {
+			toUser() {
+				uni.navigateTo({
+					url: "../../user-space/user-space"
+				})
+			}
 		}
 	}
 </script>
@@ -32,24 +39,24 @@
 		padding: 20upx 50upx;
 		display: flex;
 		align-items: center;
-	
+
 		.left {
 			width: 20%;
-	
+
 			image {
 				width: 100%;
 				border-radius: 50%;
 			}
 		}
-	
+
 		.conter {
 			flex: 1;
 			padding: 0 10upx;
-	
+
 			.title {
 				font-size: 40upx;
 			}
-	
+
 			.data {
 				color: #bbbbbb;
 			}
